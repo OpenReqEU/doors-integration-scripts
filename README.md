@@ -22,7 +22,7 @@ This script exports a formal module from DOORS and creates a file containing JSO
 Since all scripts currently require the same user interactions, please see [Using the Scripts](#using-the-scripts).
 
 ### Functionality
-The script iterates of every requirement of the current module. It is manually converted to JSON, since DXL does not provide a native implementation. Special characters are therefore escaped "manually" (own implementation which is most likely not complete)! So if your exported JSON data may not be valid, please check manually for invalid characters. If you find other characters that need to be escaped, please see [contribution](how-to-contribute) to help expanding this list :)
+The script iterates of every requirement of the current module. It is manually converted to JSON, since DXL does not provide a native implementation. Special characters are therefore escaped "manually" (own implementation which is most likely not complete)! So if your exported JSON data may not be valid, please check manually for invalid characters. If you find other characters that need to be escaped, please see [contribution](#how-to-contribute) to help expanding this list :)
 
 ### Target JSON Format
 The target JSON schema is different from the OpenReq schema. Two objects are exported, the requirements (reqs) and the so called project definitions (pds). These pds contains all possible values of the attribute REQ Domain. The pds is the exported value of the underlying enum type TDomains and is only set if the TDomains is present in the module.
