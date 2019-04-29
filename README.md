@@ -31,7 +31,7 @@ The schema looks like following:
 {
 	reqs: [
     	{
-        	"toolId": string, //Requirement's internal identifier
+            "toolId": string, //Requirement's internal identifier
             "text": string, //The requirement's text
             "heading": string, //The requirement's heading
             "level": number, //The indention level
@@ -42,7 +42,7 @@ The schema looks like following:
     ],
     pds: [
     	{
-        	"domainName": string, //The name of the enum value
+            "domainName": string, //The name of the enum value
             "number": number, //The underlying number value of the enum value
             "color": number //The assigned color of the enum value
         },
