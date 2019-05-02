@@ -54,8 +54,7 @@ The schema looks like following:
 Please note that the attributes reqType and reqDomains are only set if the corresponding attribute REQ Type and REQ Domain respectively is found.
 
 ## importClassificationsFromCSV.dxl
-This script reads values from a CSV file and sets the REQ Type attribute to the read value. 
-**WARNING**: This script simply iterates over the requirements of a module and takes the next value of the CSV file. **NO ID COMPARISON IS DONE**! Therefore, read expected CSV file format description.
+This script reads values from a CSV file and sets the REQ Type attribute to the read value.
 
 ### Usage
 Since all scripts currently require the same user interactions, please see [Using the Scripts](#using-the-scripts).
@@ -63,7 +62,7 @@ Since all scripts currently require the same user interactions, please see [Usin
 ### Functionality
 This script iterates over every requirement in the current module. It takes the next line from the CSV file, reads the provided type and if its other than "NotClassified", it sets the current requirement's REQ Type attribute. The n-th requirement is set to the n-th line's value of the CSV file.
 
-**NO ID COMPARISON IS DONE**
+If the ids do not match (first column of CSV and requirement's identifier), the line is skipped but the script is not halted.
 
 ### Expected CSV File Format
 The CSV file is expected to have the file extension `.classified.csv` and to consist of two columns, separated by a semicolon (`;`). This also implies that semicolon (`;`) may only be used as separator. The first one is the identifier of the requirement and the second one is the value that should be set to the requirement's REQ Type attribute. An example file could look as follows:
@@ -125,9 +124,6 @@ To use a script, it is easiest to:
 10. Let the script run
 
 Depending on the script (import...) it may be necessary to have write permissions on the current module.
-
-## External Code / Attribution
-DXL does not provide a string split function. To overcome this limitation, code provided from Stackoverflow is used. The original code is from this [post](https://stackoverflow.com/questions/1043604/string-split-in-dxl). User [Twonky](https://stackoverflow.com/users/2457149/twonky) did an excellent job by comparing multiple suggested algorithms and provides his own implementation. We removed the first two if statements, because the functions "stringSqueeze" and "stringSqueeze" were not found and we do not need the special treatment of white space splitting or an empty pattern.
 
 ## How to contribute
 See OpenReq project contribution [Guidlines](https://github.com/OpenReqEU/OpenReq/blob/master/CONTRIBUTING.md "Guidlines").
