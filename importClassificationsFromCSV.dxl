@@ -1,0 +1,87 @@
+string getFileName() {
+	DB fileNameBox = create(current, "Select Destination to import from", styleCentered|styleFixed);
+	label(fileNameBox , "Please enter the file path");
+	DBE fn = fileName(fileNameBox , "Import-File", "", "*.csv", "CSV", false);
+	block fileNameBox;
+	string fileName = get(fn);
+	return fileName;
+}
+
+Skip mySplit(string s, string delimiter, bool onlyOneSplit) {
+	Skip ret = create;
+	Buffer buf = create;
+	buf = "";
+	int i;
+	int skipIndex = 0;
+	int len = length(s);
+	
+	for (i = 0; i < len; i++) {
+		string tmp = s[i:i];
+		if (tmp == delimiter) {
+			put(ret, skipIndex++, stringOf(buf));
+			buf = "";
+			if (onlyOneSplit) {
+				buf = s[i + 1:len];
+				i = len;
+			}
+		} else {
+			buf += tmp;
+		}
+	}
+	put(ret, skipIndex++, stringOf(buf));
+	delete buf;
+	return ret;
+}
+
+pragma runLim, 0
+
+string myFileName;
+myFileName = getFileName();
+Stream input = null;
+Buffer oneLine = create;
+
+int iLine = 0 
+
+Skip classifiedList = create;
+int updatedReqs = 0;
+if (canOpenFile(myFileName, false)) 
+{ 
+	input = read(myFileName);
+	while (!end input) 
+	{ 
+		// Read file line by line 
+		input >= oneLine;
+		string myLine;
+		myLine = stringOf(oneLine);
+		put(classifiedList, iLine, myLine);
+		iLine++;
+	}
+	
+	Object o;
+	Module m;
+	m = current Module;
+	int i = 0;
+	
+	for o in m do {
+		string myLine2;
+		string csvId, t;
+		find(classifiedList, i, myLine2);
+		Skip tmp = mySplit(myLine2, ";", true);
+		find(tmp, 0, csvId);
+		find(tmp, 1, t);
+		string objId = identifier(o);
+		
+		if (objId == csvId) {
+			if (t != "NotClassified") {
+				o."REQ Type" = t;
+				updatedReqs++;
+			}
+		} else {
+			print "ID missmatch: " objId " != " csvId "\n";
+		}
+		
+		i++;
+	}
+	
+	print "Successfully updated " updatedReqs " requirements.";
+}
